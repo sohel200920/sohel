@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sohel's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f06, #0044ff);
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: #0044ff;
+            /* Fallback for unsupported browsers */
+            background: linear-gradient(45deg, #f06, #0044ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #0044ff;
+            font-weight: bold;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #f06;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        section {
+            margin-bottom: 50px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        section h2 {
+            color: #f06;
+            margin-bottom: 20px;
+        }
+
+        .skills,
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .skill,
+        .project {
+            flex: 1 1 calc(33.333% - 20px);
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill:hover,
+        .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #f06;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+
+            .skill,
+            .project {
+                flex: 1 1 100%;
+            }
+        }
+
+        .jack {
+            height: 200px;
+            width: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp {
+            height: 120px;
+            width: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .contact {
+            justify-content: space-around;
+            align-items: self-start;
+        }
+
+        .download {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background: #0044ff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .download:hover {
+            background: #f06;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Sohel Imam Shaikh</h1>
+        <p>Official Website Of Sohel Imam Shaikh</p>
+        <nav>
+            <a href="#about">About Me</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>"Hello! I'm Sohel Imam Shaikh, "</p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects">
+                <div class="project">
+                    <img class="jack" src="jack.webp" alt="JACK AI">
+                    <a href="#" class="download">Download</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>If you'd like to know more about me, feel free to reach out!</p>
+            <div class="contact">
+                <div>
+                    <img class="whatsapp" src="whatsapp.png" alt="WhatsApp">
+                    <p>+91 9427922592</p>
+                </div>
+                <div>
+                    <img class="whatsapp" src="insta.webp" alt="Instagram">
+                    <br><a href="http://instagram.com/sohel2009_03">Instagram</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Sohel Imam Shaikh.</p>
+    </footer>
+</body>
+
+</html>
