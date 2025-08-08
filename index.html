@@ -3,219 +3,271 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sohel's Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="jpeg" href="favicon.ico">
     <style>
-        /* General Reset */
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f06, #0044ff);
-            background-size: cover;
-            min-height: 100vh;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        header h1 {
-            font-size: 3rem;
-            color: #0044ff;
-            /* Fallback for unsupported browsers */
-            background: linear-gradient(45deg, #f06, #0044ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            margin-top: 10px;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f2f2;
         }
 
         nav {
-            margin-top: 20px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #0044ff;
-            font-weight: bold;
-            margin: 0 15px;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #f06;
+            background-color: #222;
+            color: white;
+            padding: 1rem 0;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
-            margin: 50px auto;
+            margin: auto;
         }
 
-        section {
-            margin-bottom: 50px;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        section h2 {
-            color: #f06;
-            margin-bottom: 20px;
-        }
-
-        .skills,
-        .projects {
+        .nav-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .skill,
-        .project {
-            flex: 1 1 calc(33.333% - 20px);
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 10px;
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            padding: 100px 0;
             text-align: center;
-            transition: transform 0.3s ease;
         }
 
-        .skill:hover,
-        .project:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 span {
+            color: yellow;
+        }
+
+        .typewriter {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            letter-spacing: 1px;
+            min-height: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: inline-block;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+        }
+
+        .about-section,
+        .projects-section,
+        .contact-section {
+            padding: 60px 0;
+            background-color: white;
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.03);
+        }
+
+        .project-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Stylish Instagram link */
+        .instagram-link {
+            font-size: 22px;
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .instagram-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         footer {
+            background-color: #222;
+            color: white;
             text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        footer a {
-            color: #f06;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-
-            .skill,
-            .project {
-                flex: 1 1 100%;
-            }
-        }
-
-        .jack {
-            height: 200px;
-            width: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .whatsapp {
-            height: 120px;
-            width: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 10px;
-            justify-content: center;
-        }
-
-        .contact {
-            justify-content: space-around;
-            align-items: self-start;
-        }
-
-        .download {
-            display: inline-block;
-            padding: 10px 20px;
-            color: white;
-            background: #0044ff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background 0.3s ease;
-        }
-
-        .download:hover {
-            background: #f06;
+            padding: 1rem 0;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Sohel Imam Shaikh</h1>
-        <p>Official Website Of Sohel Imam Shaikh</p>
-        <nav>
-            <a href="#about">About Me</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Sohel.</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-container">
+            <h1>Hello, I'm <span>Sohel</span></h1>
+            <p class="typewriter"></p>
+            <a href="#projects" class="btn">View Projects</a>
+        </div>
     </header>
 
-    <div class="container">
-        <section id="about">
-            
+    <section id="about" class="about-section">
+        <div class="container">
             <h2>About Me</h2>
-            <p>Hello! I'm Sohel Imam Shaikh, and this is the place where I showcase all the projects I've created. </p>
-        </section>
+            <p>
+                Hi! Main Sohel hoon, Mujhe coding aur programming pasand hai. Main HTML, CSS, JavaScript aur Python use karta hoon.
+                Maine kuch projects banaye hain jaise chatbot app, Android app aur websites. Coding mere liye ek skill bhi hai
+                aur ek hobby bhi. Mujhe CSS styling aur modern web development aata hai. Main user-friendly, responsive websites
+                banata hoon jo khoobsurat bhi hoti hain aur fast bhi.
+            </p>
+        </div>
+    </section>
 
-        <section id="projects">
+    <section id="projects" class="projects-section">
+        <div class="container">
             <h2>Projects</h2>
-            <div class="projects">
-                <div class="project">
-                    <img class="jack" src="jack.webp" alt="JACK AI"> <br>
-                    <a href="https://kodular.app/JMQ-IUG"
-                        class="download">Download</a>
-<a href="https://aijack.vercel.app"
-                        class="download">Use It Online</a>
-                </div>
-            </div>
-        </section>
+            <div class="projects-grid">
 
-        <section id="contact">
+                <div class="project-card">
+                    <img src="jack.webp" alt="Jack AI" class="project-img">
+                    <h3>Jack AI</h3>
+                    <p>Personal AI ChatBot</p>
+                    <div class="project-buttons">
+                        <a href="https://aijack.vercel.app" target="_blank" class="btn">Use</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="whatsapp.jpg" alt="Chat App" class="project-img">
+                    <h3>Chat App</h3>
+                    <p>Real-time chat application</p>
+                    <div class="project-buttons">
+                        <a href="https://chat-app-rd9t.onrender.com" target="_blank" class="btn">Use</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
             <h2>Contact</h2>
-            <p>If you'd like to know more about me, feel free to reach out!</p>
-            <div class="projects">
-                
-                <div>
-
-                    <br><a href="http://instagram.com/sohel2009_03"> <img class="whatsapp" src="insta.webp"
-                            alt="Instagram"></a>
-                </div>
-            </div>
-        </section>
-    </div>
+            <a href="https://instagram.com/sohel2009_03" target="_blank" class="instagram-link">
+                📸 Follow me on Instagram
+            </a>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2024 Sohel Imam Shaikh.</p>
+        <div class="container">
+            <p>© 2025 Sohel. All Rights Reserved.</p>
+        </div>
     </footer>
-</body>
 
+    <script>
+        const roles = ["Web Developer", "App Developer", "Creative Coder"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        const typeElement = document.querySelector(".typewriter");
+
+        function typeRole() {
+            if (charIndex < roles[roleIndex].length) {
+                typeElement.textContent += roles[roleIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeRole, 80);
+            } else {
+                setTimeout(eraseRole, 1500);
+            }
+        }
+
+        function eraseRole() {
+            if (charIndex > 0) {
+                typeElement.textContent = roles[roleIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseRole, 50);
+            } else {
+                roleIndex = (roleIndex + 1) % roles.length;
+                setTimeout(typeRole, 500);
+            }
+        }
+
+        typeRole();
+    </script>
+
+</body>
 </html>
