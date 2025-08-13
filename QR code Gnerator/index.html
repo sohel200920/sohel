@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>QR CODE Generator By:- sohelimamshaikh</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>QR Generator </h1>
+  <div class="row" style="gap:18px">
+    <div class="col" style="max-width:520px">
+      <label for="data">Text / Data /Link</label>
+      <textarea id="data" placeholder="Paste here"></textarea>
+
+      <div class="controls">
+        <div>
+          <label for="ecc">correction level</label>
+          <select id="ecc">
+            <option value="L">L (Low ~ 7%)</option>
+            <option value="M" selected>M (15%)</option>
+            <option value="Q">Q (25%)</option>
+            <option value="H">H (30%)</option>
+          </select>
+        </div>
+        <div>
+          <label for="version">Max version allowed (1–10)</label>
+          <input id="version" type="range" min="1" max="10" value="10"/>
+          <div class="small">Selected max version: <span id="verlabel">10</span></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:12px">
+        <button id="genBtn">Generate QR</button>
+        <button id="downloadBtn">Download SVG</button>
+      </div>
+      <div class="small">Algorithm: byte-mode encoding → choose smallest version ≤ max → split into blocks per standard → </div>
+    </div>
+
+    <div class="col">
+      <div class="out">
+        <div style="text-align:center;width:100%">
+          <div class="meta">Result</div>
+          <div style="margin-top:10px" id="info"></div>
+          <div style="margin-top:12px" id="svgout" class="svgwrapper"></div>
+          <div style="margin-top:8px;font-size:13px;color:#9ab">Tip: Phone camera or QR scanner apps should be able to read the generated SVG (use moderate scale).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Made By <a href="sohelimamshaikh.vercel.app">Sohel</a></footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
