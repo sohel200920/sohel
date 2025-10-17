@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #36798a);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow: hidden;
+      animation: fadeInBody 1.5s ease-in-out;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    form {
+      background: rgba(8, 87, 139, 0.164);
+      padding: 25px;
+      border-radius: 15px;
+      width: 320px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      animation: formPop 1s ease;
+    }
+
+    @keyframes formPop {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      box-shadow: 0 0 8px #00bcd4;
+    }
+
+    button {
+      width: 100%;
+      background: #00bcd4;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #0097a7;
+      transform: scale(1.03);
+    }
+
+    button.loading {
+      background: #0288d1;
+      cursor: wait;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+      font-weight: 600;
+      min-height: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .status.show {
+      opacity: 1;
+    }
+
+    /* Dots animation for "Sending..." */
+    .dots::after {
+      content: "";
+      display: inline-block;
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { content: ""; }
+      40% { content: "."; }
+      60% { content: ".."; }
+      80%, 100% { content: "..."; }
+    }
+  </style>
+</head>
+<body>
+  <form id="contactForm" onsubmit="sendToTelegram(event)">
+    <h2>Contact Me</h2>
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Contact" required>
+    <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+    <button type="submit" id="sendBtn">Send Message</button>
+    <div class="status" id="status"></div>
+  </form>
+
+  <script>
+    function sendToTelegram(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const status = document.getElementById("status");
+      const button = document.getElementById("sendBtn");
+
+      if (!name || !email || !message) {
+        status.innerHTML = "❌ Please fill all fields!";
+        status.style.color = "red";
+        status.classList.add("show");
+        return;
+      }
+
+      // Show sending status
+      status.innerHTML = "📤 Sending";
+      status.classList.add("dots");
+      status.style.color = "#ffeb3b";
+      status.classList.add("show");
+      button.classList.add("loading");
+
+      const token = "7066548581:AAHW8fbNiDJL3cwcOhXhjZLBAb-CcBVu1fs";
+      const chatId = "7640736550";
+      const text = `Name: ${name}\nContact: ${email}\nMessage: ${message}`;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
+        .then((res) => {
+          status.classList.remove("dots");
+          button.classList.remove("loading");
+          if (res.ok) {
+            status.innerHTML = "✅ Message sent successfully!";
+            status.style.color = "#4caf50";
+            document.getElementById("contactForm").reset();
+          } else {
+            status.innerHTML = "❌ Failed to send message.";
+            status.style.color = "red";
+          }
+        })
+        .catch(() => {
+          status.classList.remove("dots");
+          button.classList.remove("loading");
+          status.innerHTML = "❌ Failed to send message.";
+          status.style.color = "red";
+        });
+    }
+  </script>
+</body>
+</html>
