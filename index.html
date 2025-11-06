@@ -6,11 +6,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="Portfolio of Sohel Imam Shaikh — web apps, chatbots, and small business tools.">
   <title>Sohel Imam Shaikh — Web & App Developer</title>
-  <meta name="google-site-verification" content="b3t2JjBj57BdIXikES-nI9EjwVG06R5Bx-w8xnbaq2E" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap"
-    rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    #about p,
+    .skills .pills,
+    .project-grid {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    body.loaded #about p,
+    body.loaded .skills .pills,
+    body.loaded .project-grid {
+      opacity: 1;
+    }
+  </style>
 </head>
 
 <body>
@@ -26,85 +36,36 @@
   </header>
 
   <main>
-    <section class="hero" id="home" aria-label="Hero">
+    <section class="hero" id="home">
       <div class="container hero-grid">
         <div class="hero-text">
-          <h1>Sohel Imam Shaikh — <span class="muted">Web &amp; App Developer</span></h1>
-          <p class="lead">Building fast, beautiful, and practical web apps. Open to internships &amp; freelance.</p>
+          <h1>Sohel Imam Shaikh — <span class="muted">Web & App Developer</span></h1>
+          <p class="lead">Building fast, beautiful, and practical web apps. Open to internships & freelance.</p>
           <div class="cta">
             <a class="btn" href="#projects">View Projects</a>
             <a class="btn ghost" href="contact.html">Contact Me</a>
           </div>
         </div>
-        <div class="hero-card" role="img" aria-label="Profile placeholder">
-          <img src="/assets/sohel.png" alt="sohel">
+        <div class="hero-card">
+          <img src="assets/sohel.png" alt="Sohel Imam Shaikh">
         </div>
       </div>
     </section>
 
     <section class="about container" id="about">
       <h2>About</h2>
-      <p>I'm a self-taught developer focused on web apps, simple mobile-first games and AI chatbots. I build
-        practical tools — from simple games to a chatbot and JACK AI frontend experiments.</p>
-      <ul class="small-list">
-        <li><strong>Languages:</strong> HTML, CSS, JavaScript, Python</li>
-      </ul>
+      <p>Loading...</p>
     </section>
 
     <section class="skills container" id="skills">
       <h2>Skills</h2>
-      <div class="pills">
-        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>React (basics)</span>
-        <span>Node.js </span><span>GitHub</span><span>web development</span><span>Video Editing</span><span>App
-          development</span><span>Python</span>
-      </div>
+      <div class="pills"></div>
     </section>
 
     <section class="projects container" id="projects">
       <h2>Projects</h2>
-      <div class="project-grid">
-        <article class="card">
-          <img src="/assets/whatsapp.jpg" alt="Chatbot App screenshot (replace)">
-          <div class="card-body">
-            <h3>Chatbot App</h3>
-            <p class="tech">Node Js & HTML · CSS · JS </p>
-            <ul>
-              <li>Responsive chat UI </li>
-              <li>End-To-End Encrypted</li>
-            </ul>
-            <p><a href="https://chat-app2009.vercel.app/" class="link">View demo /use it</a></p>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="/assets/jack.webp" alt="JACK AI (Frontend) screenshot (replace)">
-          <div class="card-body">
-            <h3>JACK AI </h3>
-            <p class="tech">HTML · CSS · JS</p>
-            <ul>
-              <li>Memory file concept & Smart Replies</li>
-              <li>Your Smart Helper</li>
-            </ul>
-            <p><a href="https://aijack.vercel.app" class="link">In-development / Demo</a></p>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="/assets/qrcode.svg" alt="Furniture Payment Tracker screenshot (replace)">
-          <div class="card-body">
-            <h3>QR Code Generator</h3>
-            <p class="tech">HTML · CSS · JS</p>
-            <ul>
-              <li>generate QR Codes of your Text, Links, Data</li>
-              <li>Download And Use Your qr code </li>
-            </ul>
-            <p><a href="qrcode/" class="link">Use and make qr codes</a></p>
-          </div>
-        </article>
-      </div>
+      <div class="project-grid"></div>
     </section>
-
-
   </main>
 
   <footer class="footer">
@@ -113,10 +74,63 @@
     </div>
   </footer>
 
-
-
-
   <script src="script.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCOkxULM4Xh3FYP-v1GtENMmwcq9tVaEAI",
+      authDomain: "sohel-admin.firebaseapp.com",
+      databaseURL: "https://sohel-admin-default-rtdb.firebaseio.com",
+      projectId: "sohel-admin",
+      storageBucket: "sohel-admin.firebasestorage.app",
+      messagingSenderId: "393670392149",
+      appId: "1:393670392149:web:6ae6b830e4f4a0679997dc",
+      measurementId: "G-PMB0Y33BLZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Load About
+    onValue(ref(db, "about"), (snap) => {
+      document.querySelector("#about p").textContent = snap.val() || "";
+      document.body.classList.add('loaded');
+    });
+
+    // Load Skills
+    onValue(ref(db, "skills"), (snap) => {
+      const container = document.querySelector(".skills .pills");
+      container.innerHTML = "";
+      snap.forEach((s) => {
+        const span = document.createElement("span");
+        span.textContent = s.val();
+        container.appendChild(span);
+      });
+      document.body.classList.add('loaded');
+    });
+
+    // Load Projects
+    onValue(ref(db, "projects"), (snap) => {
+      const grid = document.querySelector(".project-grid");
+      grid.innerHTML = "";
+      snap.forEach((p) => {
+        const proj = p.val();
+        const html = `
+          <article class="card">
+            <img src="${proj.image}" alt="${proj.title}">
+            <div class="card-body">
+              <h3>${proj.title}</h3>
+              <p>${proj.desc}</p>
+            </div>
+          </article>`;
+        grid.insertAdjacentHTML("beforeend", html);
+      });
+      document.body.classList.add('loaded');
+    });
+  </script>
 </body>
 
 </html>
