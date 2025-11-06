@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Sohel Imam Shaikh</title>
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" src="admin.js" defer></script>
+</head>
+<body>
+  <div class="login-screen" id="loginScreen">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <p id="loginStatus"></p>
+  </div>
+
+  <div class="dashboard hidden" id="dashboard">
+    <header>
+      <h1>⚙️ Admin Dashboard</h1>
+      <button id="logoutBtn">Logout</button>
+    </header>
+
+    <section class="panel">
+      <h2>🧠 About</h2>
+      <textarea id="aboutText" rows="5" placeholder="Write About..."></textarea>
+      <button id="saveAbout">Save</button>
+    </section>
+
+    <section class="panel">
+      <h2>🧩 Skills</h2>
+      <div id="skillsList"></div>
+      <input type="text" id="newSkill" placeholder="Add new skill">
+      <button id="addSkill">Add Skill</button>
+    </section>
+
+    <section class="panel">
+      <h2>🚀 Projects</h2>
+      <div id="projectList"></div>
+      <input type="text" id="projTitle" placeholder="Project Title">
+      <textarea id="projDesc" placeholder="Description"></textarea>
+      <input type="file" id="projImg" accept="image/*">
+      <button id="addProject">Add Project</button>
+    </section>
+  </div>
+</body>
+</html>
