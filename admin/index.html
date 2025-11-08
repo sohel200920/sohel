@@ -1,22 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel — Sohel Imam Shaikh</title>
-  <link rel="stylesheet" href="./admin/admin.css">
-  <script type="module" src="./admin/admin.js" defer></script>
+  <link rel="stylesheet" href="./admin/admin.css" />
+  <style>
+    /* === Base Theme === */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: radial-gradient(circle at top, #0a0f1c, #000);
+      color: #e6eef3;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* === Login Screen === */
+    .login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      animation: fadeIn 1s ease;
+    }
+
+    .login-card {
+      background: rgba(20, 30, 50, 0.6);
+      padding: 40px 30px;
+      border-radius: 18px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      width: 320px;
+      text-align: center;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .login-card h2 {
+      margin-bottom: 20px;
+      color: cyan;
+      letter-spacing: 1px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      box-shadow: 0 0 8px cyan;
+    }
+
+    button {
+      background: linear-gradient(90deg, cyan, #007bff);
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px cyan;
+    }
+
+    #loginStatus {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #ff6363;
+    }
+
+    /* === Dashboard === */
+    .dashboard {
+      display: none;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .dashboard.active {
+      display: block;
+      padding: 20px;
+      max-width: 1100px;
+      margin: 50px auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+      padding-bottom: 10px;
+    }
+
+    header h1 {
+      color: cyan;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    header button {
+      width: auto;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: transparent;
+      border: 1px solid cyan;
+      color: cyan;
+      transition: 0.3s;
+    }
+
+    header button:hover {
+      background: cyan;
+      color: black;
+      box-shadow: 0 0 8px cyan;
+    }
+
+    /* === Panels === */
+    .panel {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 14px;
+      margin-bottom: 30px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+      transition: 0.3s ease;
+    }
+
+    .panel:hover {
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      color: cyan;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      color: white;
+      border-radius: 10px;
+      padding: 10px;
+      outline: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    textarea:focus {
+      box-shadow: 0 0 8px cyan;
+    }
+
+    .save-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, cyan, #007bff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    .save-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px cyan;
+    }
+
+    #skillsList span {
+      display: inline-block;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid cyan;
+      border-radius: 20px;
+      padding: 6px 12px;
+      margin: 5px;
+      font-size: 13px;
+      color: cyan;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #skillsList span:hover {
+      background: cyan;
+      color: black;
+      box-shadow: 0 0 8px cyan;
+    }
+
+    #projectList img {
+      border-radius: 10px;
+      max-width: 120px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 5px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
+
 <body>
+
+  <!-- === LOGIN PAGE === -->
   <div class="login-screen" id="loginScreen">
-    <h2>Admin Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button id="loginBtn">Login</button>
-    <p id="loginStatus"></p>
+    <div class="login-card">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="loginBtn">Login</button>
+      <p id="loginStatus"></p>
+    </div>
   </div>
 
-  <div class="dashboard hidden" id="dashboard">
+  <!-- === DASHBOARD === -->
+  <div class="dashboard" id="dashboard">
     <header>
       <h1>⚙️ Admin Dashboard</h1>
       <button id="logoutBtn">Logout</button>
@@ -24,26 +252,41 @@
 
     <section class="panel">
       <h2>🧠 About</h2>
-      <textarea id="aboutText" rows="5" placeholder="Write About..."></textarea>
-      <button id="saveAbout">Save</button>
+      <textarea id="aboutText" placeholder="Write About..."></textarea>
+      <button class="save-btn" id="saveAbout">Save</button>
     </section>
 
     <section class="panel">
       <h2>🧩 Skills</h2>
       <div id="skillsList"></div>
-      <input type="text" id="newSkill" placeholder="Add new skill">
-      <button id="addSkill">Add Skill</button>
+      <input type="text" id="newSkill" placeholder="Add new skill" />
+      <button class="save-btn" id="addSkill">Add Skill</button>
     </section>
 
     <section class="panel">
       <h2>🚀 Projects</h2>
       <div id="projectList"></div>
-      <input type="text" id="projTitle" placeholder="Project Title">
-      <textarea id="projDesc" placeholder="Description"></textarea>
-      <input type="file" id="projImg" accept="image/*">
-      <button id="addProject">Add Project</button>
+      <input type="text" id="projTitle" placeholder="Project Title" />
+      <textarea id="projDesc" placeholder="Project Description"></textarea>
+      <input type="file" id="projImg" accept="image/*" />
+      <button class="save-btn" id="addProject">Add Project</button>
     </section>
-  </div>
-</body>
-</html>
+    <section class="panel">
+      <h2>📱 Apps</h2>
+      <div id="appsList"></div>
+      <input type="text" id="appTitle" placeholder="App Title">
+      <textarea id="appDesc" placeholder="App Description"></textarea>
+      <input type="file" id="appImg" accept="image/*">
+      <input type="text" id="appUse" placeholder="Use Link (URL)">
+      <input type="text" id="appDownload" placeholder="Download Link (URL)">
+      <button class="save-btn" id="addApp">Add App</button>
+    </section>
 
+
+
+  </div>
+
+  <script type="module" src="./admin/admin.js"></script>
+</body>
+
+</html>
