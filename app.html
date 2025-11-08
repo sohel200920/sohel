@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Apps — Sohel Imam Shaikh</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCOkxULM4Xh3FYP-v1GtENMmwcq9tVaEAI",
+      authDomain: "sohel-admin.firebaseapp.com",
+      databaseURL: "https://sohel-admin-default-rtdb.firebaseio.com",
+      projectId: "sohel-admin",
+      storageBucket: "sohel-admin.firebasestorage.app",
+      messagingSenderId: "393670392149",
+      appId: "1:393670392149:web:6ae6b830e4f4a0679997dc",
+      measurementId: "G-PMB0Y33BLZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const appsGrid = document.getElementById("appsGrid");
+
+    // Realtime load from Firebase
+    const appsRef = ref(db, "apps/");
+    onValue(appsRef, (snapshot) => {
+      const data = snapshot.val();
+      appsGrid.innerHTML = "";
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          const app = data[key];
+          appsGrid.innerHTML += `
+            <div class="app-card">
+              <img src="${app.image}" alt="${app.title}">
+              <h3>${app.title}</h3>
+              <p>${app.desc}</p>
+              <div class="buttons">
+                <a href="${app.use}" target="_blank">Use</a>
+                <a href="${app.download}" target="_blank">Download</a>
+              </div>
+            </div>`;
+        });
+      } else {
+        appsGrid.innerHTML = "<p>No apps uploaded yet.</p>";
+      }
+    });
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at top, #0a0f1c, #000);
+      color: white;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin: 30px 0 10px;
+      color: cyan;
+    }
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .app-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 14px;
+      text-align: center;
+      padding: 15px;
+      transition: 0.3s;
+    }
+    .app-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+    .app-card img {
+      width: 50%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .buttons a {
+      display: inline-block;
+      margin: 6px;
+      padding: 8px 14px;
+      background: cyan;
+      color: black;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .buttons a:hover {
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>📱 My Apps</h1>
+  <div id="appsGrid" class="apps-grid"></div>
+</body>
+</html>
