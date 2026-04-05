@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin — Students App</title>
+
+    <!-- Link external CSS -->
+    <link rel="stylesheet" href="students.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <aside class="sidebar">
+            <div class="logoSmall">
+                <img src="std.png" alt="logo">
+                <div>
+                    <h1>Students App — Admin</h1>
+                    <div class="muted">Manage students • Messages • Quizzes</div>
+                </div>
+            </div>
+
+            <button id="btnStudents" class="side-btn active">👥 Students</button>
+            <button id="btnAnnouncements" class="side-btn">📢 Announcements</button>
+            <button id="btnQuizzes" class="side-btn">📝 Quizzes</button>
+
+            <div style="margin-top:20px" class="small">Logged in as: <b>MatrixMan</b></div>
+        </aside>
+
+        <main class="main">
+            <!-- STUDENTS -->
+            <section id="studentsSection" class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div>
+                        <h3 style="margin:0">Students</h3>
+                        <div class="small">Search, message, edit, export</div>
+                    </div>
+
+                    <div class="flex">
+                        <input id="studentSearch" placeholder="Search name / id / mobile" style="width:320px">
+                        <button id="refreshStudents" class="btn grey">Refresh</button>
+                        <button id="downloadCSV" class="btn">Export CSV</button>
+                    </div>
+                </div>
+
+                <div id="studentList" class="students-list" style="margin-top:12px">
+                    <div class="small">Loading students...</div>
+                </div>
+            </section>
+
+            <!-- ANNOUNCEMENTS -->
+            <section id="announcementsSection" class="card" style="display:none">
+                <h3 style="margin:0">Announcements</h3>
+                <div style="display:flex;gap:10px;margin-top:10px;align-items:center;flex-wrap:wrap">
+                    <input id="annText" placeholder="Announcement text" style="min-width:240px;flex:1">
+                    <input id="annImage" type="file" accept="image/*">
+                    <input id="annFile" type="file" title="Attach any file (pdf, docx, zip etc.)">
+                    <input id="annBtnText" placeholder="Button text (optional)" style="width:200px">
+                    <input id="annBtnLink" placeholder="Button link (https://...)" style="width:280px">
+                    <button id="saveAnn" class="btn">Save</button>
+                </div>
+                <div id="annList" style="margin-top:12px"></div>
+            </section>
+
+            <!-- QUIZZES -->
+            <section id="quizzesSection" class="card" style="display:none">
+                <h3 style="margin:0">Quizzes</h3>
+                <div style="margin-top:10px">
+                    <input id="qQuestion" placeholder="Question">
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <input id="qOpt1" placeholder="Option 1">
+                        <input id="qOpt2" placeholder="Option 2">
+                    </div>
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <input id="qOpt3" placeholder="Option 3">
+                        <input id="qOpt4" placeholder="Option 4">
+                    </div>
+                    <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+                        <input id="qCorrect" placeholder="Correct (1-4)" style="width:140px">
+                        <button id="saveQuiz" class="btn">Save</button>
+                    </div>
+                </div>
+                <div id="quizList" style="margin-top:12px"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- STUDENT DETAIL / MESSAGE MODAL -->
+    <div id="studentModal" class="modal" aria-hidden="true">
+        <div class="modal-box">
+            <div class="detail-left">
+                <div style="width:140px;height:140px;border-radius:12px;background:white;overflow:hidden"><img
+                        id="m_img" src="" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="text-align:center">
+                    <div id="m_name" style="font-weight:800"></div>
+                    <div id="m_id" class="small"></div>
+                </div>
+                <div style="margin-top:8px"><button id="downloadPhoto" class="btn grey small">Download Photo</button>
+                </div>
+            </div>
+
+            <div class="detail-right">
+                <h3 style="margin:0">Student Details & Message</h3>
+
+                <div>
+                    <label class="small">Full name</label>
+                    <div id="d_name" style="font-weight:700"></div>
+
+                    <label class="small">ID</label>
+                    <div id="d_id" class="small"></div>
+
+                    <label class="small" style="margin-top:8px">Message (title + text + image + button)</label>
+                    <input id="msgTitle" placeholder="Title (optional)">
+                    <textarea id="msgText" rows="3" placeholder="Message text (required)"></textarea>
+
+                    <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+                        <input id="msgBtnText" placeholder="Button text (optional)" style="flex:1">
+                        <select id="msgBtnType" style="width:160px">
+                            <option value="none">No button</option>
+                            <option value="external">External</option>
+                            <option value="internal">Internal</option>
+                        </select>
+                    </div>
+
+                    <div id="btnExtra" style="margin-top:8px;display:none">
+                        <input id="msgBtnLinkExternal" placeholder="External URL (https://...)" />
+                        <select id="msgBtnLinkInternal" style="display:none">
+                            <option value="">Select page</option>
+                            <option value="home.html">Home</option>
+                            <option value="goals.html">Goals</option>
+                            <option value="quiz.html">Quiz</option>
+                            <option value="ai.html">AI</option>
+                        </select>
+                    </div>
+
+                    <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+                        <input id="msgImage" type="file" accept="image/*">
+                        <label style="display:flex;align-items:center;gap:6px"><input id="msgRequireForm"
+                                type="checkbox"> Require
+                            Form</label>
+                        <button id="openBuilder" class="btn grey small">Open Builder</button>
+                    </div>
+
+                    <div style="margin-top:8px">
+                        <button id="sendMsgBtn" class="btn">Send Message</button>
+                        <button id="clearMsgBtn" class="btn grey">Clear Message</button>
+                        <div id="studentMessageStatus" class="small" style="margin-top:8px"></div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="builderPreview" style="margin-top:8px" class="small"></div>
+
+                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                    <button id="editStudent" class="btn grey small">Edit</button>
+                    <button id="deleteStudent" class="btn small" style="background:#ef4444">Delete</button>
+                    <button id="closeModal" class="btn grey small">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUILDER MODAL -->
+    <div id="builderModal" class="modal" aria-hidden="true">
+        <div class="modal-box" style="max-width:820px">
+            <div style="padding:18px;width:100%">
+                <h3>Form Builder</h3>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <select id="fieldType">
+                        <option value="text">Text</option>
+                        <option value="tel">Phone</option>
+                        <option value="date">Date</option>
+                        <option value="textarea">Long text</option>
+                        <option value="select">Select</option>
+                        <option value="file">Image (png/jpg)</option>
+                    </select>
+                    <input id="fieldLabel" placeholder="Field label">
+                    <label style="display:flex;gap:6px;align-items:center"><input id="fieldReq" type="checkbox">
+                        Required</label>
+                    <button id="addFieldBtn" class="btn">Add</button>
+                </div>
+
+                <div id="builderList" class="builder-list" style="margin-top:12px"></div>
+
+                <div style="margin-top:12px;display:flex;gap:8px">
+                    <button id="saveBuilderBtn" class="btn">Save Builder</button>
+                    <button id="closeBuilderBtn" class="btn grey">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase v8 SDKs (ensure available) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <!-- Your existing app init (keep this file as-is) -->
+    <script src="studentsApp.js"></script>
+
+    <!-- New admin JS (depends on db being initialized by app.js) -->
+    <script src="students.js"></script>
+</body>
+
+</html>

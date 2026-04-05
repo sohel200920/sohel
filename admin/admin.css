@@ -1,0 +1,67 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #0d1117, #000);
+  color: #eee;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden { display: none; }
+
+.login-screen, .dashboard {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 30px;
+  background: rgba(25,25,25,0.9);
+  border-radius: 16px;
+  box-shadow: 0 0 20px cyan;
+  text-align: center;
+}
+
+input, textarea, button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+input, textarea {
+  background: #111;
+  color: #fff;
+  border: 1px solid cyan;
+}
+
+button {
+  background: linear-gradient(90deg, cyan, #007bff);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px cyan;
+}
+
+.panel {
+  margin: 20px 0;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+}
+
+#skillsList span {
+  background: #111;
+  border: 1px solid cyan;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin: 4px;
+  display: inline-block;
+  cursor: pointer;
+}
